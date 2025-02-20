@@ -34,16 +34,22 @@ var host = Host.CreateDefaultBuilder(args)
         services.AddMassTransit(x =>
         {
             x.SetKebabCaseEndpointNameFormatter();
-            x.AddConsumer<SendDiscountConsumer>();
+            x.AddConsumer<SendDiscountConsumerWithSession>();
+            x.AddConsumer<SendDiscountConsumerWithoutSession>();
 
             x.UsingAzureServiceBus((context, cfg) =>
             {
                 cfg.Host(configuration.GetConnectionString("BusConnection"));
 
-                cfg.ReceiveEndpoint("send-discount", ep =>
+                cfg.ReceiveEndpoint("send-discount-with-session", ep =>
                 {
                     ep.RequiresSession = true;
-                    ep.Consumer<SendDiscountConsumer>(context);
+                    ep.Consumer<SendDiscountConsumerWithSession>(context);
+                });
+
+                cfg.ReceiveEndpoint("send-discount-without-session", ep =>
+                {
+                    ep.Consumer<SendDiscountConsumerWithoutSession>(context);
                 });
             });
         });

@@ -22,32 +22,42 @@ namespace MassTransitSessionSample.Publisher.HostedServices
             var serviceProvider = scope.ServiceProvider;
             var bus = serviceProvider.GetRequiredService<IBus>();
 
-            var enrollmentId = Guid.NewGuid();
-            var list = new List<SendDiscount>
+            var enrollmentId1 = Guid.NewGuid();
+            var list1 = new List<SendDiscount>
             {
-                new SendDiscount { EnrollmentId = enrollmentId, PercentDiscount = 50, Creation = DateTime.UtcNow },
-                new SendDiscount { EnrollmentId = enrollmentId, PercentDiscount = 50, Creation = DateTime.UtcNow },
-                new SendDiscount { EnrollmentId = enrollmentId, PercentDiscount = 50, Creation = DateTime.UtcNow },
-                new SendDiscount { EnrollmentId = enrollmentId, PercentDiscount = 50, Creation = DateTime.UtcNow },
-                new SendDiscount { EnrollmentId = enrollmentId, PercentDiscount = 50, Creation = DateTime.UtcNow },
-                new SendDiscount { EnrollmentId = enrollmentId, PercentDiscount = 50, Creation = DateTime.UtcNow },
-                new SendDiscount { EnrollmentId = enrollmentId, PercentDiscount = 50, Creation = DateTime.UtcNow },
-                new SendDiscount { EnrollmentId = enrollmentId, PercentDiscount = 50, Creation = DateTime.UtcNow },
-                new SendDiscount { EnrollmentId = enrollmentId, PercentDiscount = 50, Creation = DateTime.UtcNow },
-                new SendDiscount { EnrollmentId = enrollmentId, PercentDiscount = 50, Creation = DateTime.UtcNow },
-                new SendDiscount { EnrollmentId = enrollmentId, PercentDiscount = 50, Creation = DateTime.UtcNow },
-                new SendDiscount { EnrollmentId = enrollmentId, PercentDiscount = 50, Creation = DateTime.UtcNow },
-                new SendDiscount { EnrollmentId = enrollmentId, PercentDiscount = 50, Creation = DateTime.UtcNow },
-                new SendDiscount { EnrollmentId = enrollmentId, PercentDiscount = 50, Creation = DateTime.UtcNow },
-                new SendDiscount { EnrollmentId = enrollmentId, PercentDiscount = 50, Creation = DateTime.UtcNow },
-                new SendDiscount { EnrollmentId = enrollmentId, PercentDiscount = 50, Creation = DateTime.UtcNow },
-                new SendDiscount { EnrollmentId = enrollmentId, PercentDiscount = 50, Creation = DateTime.UtcNow },
-                new SendDiscount { EnrollmentId = enrollmentId, PercentDiscount = 50, Creation = DateTime.UtcNow },
-                new SendDiscount { EnrollmentId = enrollmentId, PercentDiscount = 50, Creation = DateTime.UtcNow },
-                new SendDiscount { EnrollmentId = enrollmentId, PercentDiscount = 50, Creation = DateTime.UtcNow },
+                new SendDiscount { EnrollmentId = enrollmentId1, PercentDiscount = 50, Creation = DateTime.UtcNow },
+                new SendDiscount { EnrollmentId = enrollmentId1, PercentDiscount = 50, Creation = DateTime.UtcNow },
+                new SendDiscount { EnrollmentId = enrollmentId1, PercentDiscount = 50, Creation = DateTime.UtcNow },
+                new SendDiscount { EnrollmentId = enrollmentId1, PercentDiscount = 50, Creation = DateTime.UtcNow },
+                new SendDiscount { EnrollmentId = enrollmentId1, PercentDiscount = 50, Creation = DateTime.UtcNow },
+                new SendDiscount { EnrollmentId = enrollmentId1, PercentDiscount = 50, Creation = DateTime.UtcNow },
+                new SendDiscount { EnrollmentId = enrollmentId1, PercentDiscount = 50, Creation = DateTime.UtcNow },
+                new SendDiscount { EnrollmentId = enrollmentId1, PercentDiscount = 50, Creation = DateTime.UtcNow },
+                new SendDiscount { EnrollmentId = enrollmentId1, PercentDiscount = 50, Creation = DateTime.UtcNow },
+                new SendDiscount { EnrollmentId = enrollmentId1, PercentDiscount = 50, Creation = DateTime.UtcNow }
             };
 
-            await bus.PublishBatch<SendDiscount>(list, context => context.SetSessionId(enrollmentId.ToString()), cancellationToken);
+            var e1 = await bus.GetSendEndpoint(new Uri("queue:send-discount-with-session"));
+            await e1.SendBatch<SendDiscount>(list1, context => context.SetSessionId(enrollmentId1.ToString()), cancellationToken);
+
+            Thread.Sleep(2000);
+
+            var enrollmentId2 = Guid.NewGuid();
+            var list2 = new List<SendDiscount>
+            {
+                new SendDiscount { EnrollmentId = enrollmentId2, PercentDiscount = 50, Creation = DateTime.UtcNow },
+                new SendDiscount { EnrollmentId = enrollmentId2, PercentDiscount = 50, Creation = DateTime.UtcNow },
+                new SendDiscount { EnrollmentId = enrollmentId2, PercentDiscount = 50, Creation = DateTime.UtcNow },
+                new SendDiscount { EnrollmentId = enrollmentId2, PercentDiscount = 50, Creation = DateTime.UtcNow },
+                new SendDiscount { EnrollmentId = enrollmentId2, PercentDiscount = 50, Creation = DateTime.UtcNow },
+                new SendDiscount { EnrollmentId = enrollmentId2, PercentDiscount = 50, Creation = DateTime.UtcNow },
+                new SendDiscount { EnrollmentId = enrollmentId2, PercentDiscount = 50, Creation = DateTime.UtcNow },
+                new SendDiscount { EnrollmentId = enrollmentId2, PercentDiscount = 50, Creation = DateTime.UtcNow },
+                new SendDiscount { EnrollmentId = enrollmentId2, PercentDiscount = 50, Creation = DateTime.UtcNow },
+                new SendDiscount { EnrollmentId = enrollmentId2, PercentDiscount = 50, Creation = DateTime.UtcNow }
+            };
+            var e2 = await bus.GetSendEndpoint(new Uri("queue:send-discount-without-session"));
+            await e2.SendBatch<SendDiscount>(list2, cancellationToken);
         }
 
         public Task StopAsync(CancellationToken cancellationToken)

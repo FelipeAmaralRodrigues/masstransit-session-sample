@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35027.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MassTransitSessionSample.Consumer", "src\MassTransitSessionSample.Consumer\MassTransitSessionSample.Consumer.csproj", "{5881788B-45C0-4427-A170-30BCB628E852}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MassTransitSessionSample.Consumer", "src\MassTransitSessionSample.Consumer\MassTransitSessionSample.Consumer.csproj", "{5881788B-45C0-4427-A170-30BCB628E852}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MassTransitSessionSample.Publisher", "src\MassTransitSessionSample.Publisher\MassTransitSessionSample.Publisher.csproj", "{667EE07E-79E8-45B7-8AD6-3008ACF89399}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MassTransitSessionSample.Publisher", "src\MassTransitSessionSample.Publisher\MassTransitSessionSample.Publisher.csproj", "{667EE07E-79E8-45B7-8AD6-3008ACF89399}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MassTransitSessionSample.Contracts", "src\MassTransitSessionSample.Contracts\MassTransitSessionSample.Contracts.csproj", "{28F19755-F0D1-43EB-98ED-E9CF02DF5F4D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MassTransitSessionSample.Contracts", "src\MassTransitSessionSample.Contracts\MassTransitSessionSample.Contracts.csproj", "{28F19755-F0D1-43EB-98ED-E9CF02DF5F4D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
