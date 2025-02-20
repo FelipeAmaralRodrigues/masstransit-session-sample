@@ -6,6 +6,9 @@
         "ASPNETCORE_ENVIRONMENT": "Local"
       },
       "dotnetRunMessages": true
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
     }
   },
   "$schema": "https://json.schemastore.org/launchsettings.json"

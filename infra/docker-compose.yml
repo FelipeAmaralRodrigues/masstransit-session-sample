@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  consumer1:
+    image: masstransit-session-sample
+    container_name: masstransit-session-sample-consumer1
+    ports:
+      - "8081:80"
+    networks:
+      - minha-rede
+    environment:
+      - ConnectionStrings__BusConnection=
+      - ConnectionStrings__StorageAccount=
+
+  consumer2:
+    image: masstransit-session-sample
+    container_name: masstransit-session-sample-consumer2
+    ports:
+      - "8082:80"
+    networks:
+      - minha-rede
+    environment:
+      - ConnectionStrings__BusConnection=
+      - ConnectionStrings__StorageAccount=
+
+  consumer3:
+    image: masstransit-session-sample
+    container_name: masstransit-session-sample-consumer3
+    ports:
+      - "8083:80"
+    networks:
+      - minha-rede
+    environment:
+      - ConnectionStrings__BusConnection=
+      - ConnectionStrings__StorageAccount=
+
+networks:
+  minha-rede:
+    driver: bridge
